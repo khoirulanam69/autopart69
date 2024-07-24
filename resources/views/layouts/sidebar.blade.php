@@ -14,4 +14,6 @@
             <a href="#" class="nav-link">Customers</a>
         </li>
     </ul>
+    <a href="{{ route('logout') }}"><button class="btn btn-primary"><i class="fa-solid fa-right-from-bracket"></i>
+            Logout</button></a>
 </div>
