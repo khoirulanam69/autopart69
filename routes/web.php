@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-  Route::get('/', [AuthController::class, 'index'])->name('home');
+  Route::get('/', [PagesController::class, 'dashboard'])->name('dashboard');
+  Route::get('/products', [PagesController::class, 'product'])->name('product');
+  Route::get('/orders', [PagesController::class, 'order'])->name('order');
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
