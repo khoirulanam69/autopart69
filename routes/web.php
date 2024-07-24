@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,10 @@ use App\Http\Controllers\AuthController;
 Route::middleware('guest')->group(function () {
   Route::get('/login', [AuthController::class, 'login'])->name('login');
   Route::post('/login', [AuthController::class, 'store']);
+  Route::get('/forgotpassword', [ForgotPasswordController::class, 'index'])->name('forgotpassword');
+  Route::post('/forgotpassword', [ForgotPasswordController::class, 'store']);
+  Route::get('/newpassword/{email}', [ForgotPasswordController::class, 'newPassword'])->name('newpassword');
+  Route::post('/newpassword', [ForgotPasswordController::class, 'storeNewPassword']);
 });
 
 Route::middleware('auth')->group(function () {

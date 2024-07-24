@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,16 +21,19 @@ class AuthController extends Controller
     function store(Request $request)
     {
         $email = $request->input('email');
-        $password = password_hash($request->input('password'), PASSWORD_DEFAULT);
+        $password = $request->input('password');
         $user = User::where('email', $email)->first();
+        $credentials = $request->only('email', 'password');
         if ($user) {
             if (password_verify($password, $user->password)) {
-                return redirect()->route('home');
+                if (Auth::attempt($credentials)) {
+                    return redirect()->route('home');
+                }
             } else {
                 return redirect()->route('login')->with('error', 'Password salah');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email belum terdaftar');
+            return redirect()->route('login')->with('error', 'Email tidak terdaftar');
         }
     }
 }
