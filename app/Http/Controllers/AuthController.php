@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     function index()
     {
-        return view('welcome');
+        return view('pages.dashboard');
     }
 
     function login()

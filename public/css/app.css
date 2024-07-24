@@ -1,0 +1,17 @@
+body {
+  display: flex;
+}
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background-color: #343a40;
+  color: white;
+  height: 100vh;
+}
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+.navbar {
+  flex: 1;
+}
