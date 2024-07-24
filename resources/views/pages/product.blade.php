@@ -1,6 +1,6 @@
 @extends('templates.main')
 @section('title', 'Dashboard')
 @section('content')
-    <h1>Products Page</h1>
-    <p>Welcome to the home page!</p>
+    <h3 class="mb-4">Data Produk</h3>
+    @include('data.data-table')
 @endsection

@@ -5,10 +5,10 @@
             <a href="/" id="dashboard" class="nav-link active">Dashboard</a>
         </li>
         <li class="nav-item">
-            <a href="/products" id="product" class="nav-link">Products</a>
+            <a href="/products" id="product" class="nav-link">Produk</a>
         </li>
         <li class="nav-item">
-            <a href="/orders" id="order" class="nav-link">Orders</a>
+            <a href="/orders" id="order" class="nav-link">Order</a>
         </li>
     </ul>
     <a href="{{ route('logout') }}"><button class="btn btn-primary"><i class="fa-solid fa-right-from-bracket"></i>
