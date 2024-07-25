@@ -7,30 +7,55 @@
             <th>Harga Beli</th>
             <th>Harga Jual</th>
             <th>Tanggal Beli</th>
+            <th>Vendor</th>
             <th>Aksi</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>KVY-001</td>
-            <td>Pelampung Bensin Beat</td>
-            <td>20</td>
-            <td>22000</td>
-            <td>26000</td>
-            <td>22/07/2024</td>
-            <td>
-                <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
-                <i class="fa-solid fa-trash mx-1" style="color: red"></i>
-                <i class="fa-solid fa-print mx-1" style="color: blue"></i>
-            </td>
-        </tr>
-    </tbody>
 </table>
 
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#data').DataTable();
+            $('#data').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('api.products') }}',
+                columns: [{
+                        data: 'code',
+                        name: 'code'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'stock',
+                        name: 'stock'
+                    },
+                    {
+                        data: 'buy',
+                        name: 'buy'
+                    },
+                    {
+                        data: 'sell',
+                        name: 'sell'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'date'
+                    },
+                    {
+                        data: 'vendor',
+                        name: 'vendor'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
         });
     </script>
 @endpush

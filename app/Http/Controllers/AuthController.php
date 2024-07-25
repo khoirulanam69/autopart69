@@ -22,7 +22,7 @@ class AuthController extends Controller
         if ($user) {
             if (password_verify($password, $user->password)) {
                 if (Auth::attempt($credentials)) {
-                    return redirect()->route('home');
+                    return redirect()->route('dashboard');
                 }
             } else {
                 return redirect()->route('login')->with('error', 'Password salah');
