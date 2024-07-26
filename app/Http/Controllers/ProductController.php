@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('pages.product');
+        return view('pages.product.index');
     }
 
     public function getProducts()
@@ -41,7 +42,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('pages.product.create');
+        $vendors = Vendor::all();
+        return view('pages.product.create', compact('vendors'));
     }
 
     public function store(Request $request)

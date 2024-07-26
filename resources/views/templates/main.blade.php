@@ -37,6 +37,17 @@
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     {{-- icon --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    {{-- Custom Script --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(function(message) {
+                    message.style.display = 'none';
+                });
+            }, 5000);
+        });
+    </script>
     @stack('scripts')
 </body>
 
