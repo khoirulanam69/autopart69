@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(1)->create();
         $this->call([
             UserSeeder::class,
-            ProductSeeder::class,
             VendorSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

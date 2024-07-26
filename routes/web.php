@@ -30,8 +30,10 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
   Route::get('/', [PagesController::class, 'dashboard'])->name('dashboard');
-  Route::get('/products', [ProductController::class, 'index'])->name('product');
+  Route::get('/products', [ProductController::class, 'index'])->name('products');
   Route::get('/api/products', [ProductController::class, 'getProducts'])->name('api.products');
+  Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+  Route::post('/products', [ProductController::class, 'store'])->name('products.store');
   Route::get('/orders', [PagesController::class, 'order'])->name('order');
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

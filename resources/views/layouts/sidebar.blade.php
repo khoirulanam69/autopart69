@@ -18,8 +18,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            const path = window.location.pathname.split('/').filter(Boolean);
-            const lastPart = path[path.length - 1];
+            const path = window.location.pathname;
 
             const activeMap = {
                 'products': '#product',
@@ -27,7 +26,14 @@
             };
 
             $('#dashboard, #product, #order').removeClass('active');
-            $(activeMap[lastPart] || '#dashboard').addClass('active');
+
+            if (path.includes('products')) {
+                $('#product').addClass('active');
+            } else if (path.includes('orders')) {
+                $('#order').addClass('active');
+            } else {
+                $('#dashboard').addClass('active');
+            }
         });
     </script>
 @endpush

@@ -38,4 +38,32 @@ class ProductController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function create()
+    {
+        return view('pages.product.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'stock' => 'required|integer|min:0',
+            'buy' => 'required|numeric|min:0',
+            'sell' => 'required|numeric|min:0',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+        ]);
+
+        Product::create([
+            'code' => $request->input('code'),
+            'name' => $request->input('name'),
+            'stock' => $request->input('stock'),
+            'buy' => $request->input('buy'),
+            'sell' => $request->input('sell'),
+            'vendor_id' => $request->input('vendor_id'),
+        ]);
+
+        return redirect()->route('products')->with('success', 'Produk berhasil ditambahkan');
+    }
 }

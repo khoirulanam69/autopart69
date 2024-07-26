@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name')->index();
-            $table->unsignedInteger('stock');
-            $table->unsignedInteger('buy');
-            $table->unsignedInteger('sell');
-            $table->unsignedInteger('vendor_id');
+            $table->string('code');
+            $table->string('name');
+            $table->integer('stock');
+            $table->decimal('buy', 10, 2);
+            $table->decimal('sell', 10, 2);
+            $table->unsignedBigInteger('vendor_id');
             $table->timestamps();
+
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 
