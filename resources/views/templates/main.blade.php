@@ -13,14 +13,26 @@
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     {{-- icon --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100vh;
+            margin: 0;
+        }
+
+        .content-container {
+            flex: 10;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 
 <body>
     @include('layouts.sidebar')
-    <div class="flex-grow-1">
+    <div class="flex-grow-1 d-flex flex-column">
         @include('layouts.navbar')
 
-        <div class="container p-3">
+        <div class="content-container p-3">
             @yield('content')
         </div>
     </div>
