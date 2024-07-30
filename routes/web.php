@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
   Route::get('/api/products', [ProductController::class, 'getProducts'])->name('api.products');
   Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
   Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+  Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+  Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
   Route::get('/orders', [PagesController::class, 'order'])->name('order');
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

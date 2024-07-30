@@ -68,4 +68,35 @@ class ProductController extends Controller
 
         return redirect()->route('products')->with('success', 'Produk berhasil ditambahkan');
     }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $vendors = Vendor::all();
+        return view('pages.product.edit', compact('product', 'vendors'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'code' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'stock' => 'required|integer|min:0',
+            'buy' => 'required|numeric|min:0',
+            'sell' => 'required|numeric|min:0',
+            'vendor_id' => 'required|integer|exists:vendors,id',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->update([
+            'code' => $request->input('code'),
+            'name' => $request->input('name'),
+            'stock' => $request->input('stock'),
+            'buy' => $request->input('buy'),
+            'sell' => $request->input('sell'),
+            'vendor_id' => $request->input('vendor_id'),
+        ]);
+
+        return redirect()->route('products')->with('success', 'Product berhasil diupdate');
+    }
 }
