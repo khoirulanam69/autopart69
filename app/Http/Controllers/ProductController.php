@@ -26,7 +26,7 @@ class ProductController extends Controller
             ->addColumn('action', function ($product) {
                 return '<td>
                     <a href="/product/edit/' . $product->id . '"><i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i></a>
-                    <a href="/product/delete/' . $product->id . '"><i class="fa-solid fa-trash mx-1" style="color: red"></i></a>
+                    <a href="/product/" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $product->id . '"><i class="fa-solid fa-trash mx-1" style="color: red"></i></a>
                     <a href="/product/print/' . $product->id . '"><i class="fa-solid fa-print mx-1" style="color: blue"></i></a>
                 </td>';
             })
@@ -97,6 +97,14 @@ class ProductController extends Controller
             'vendor_id' => $request->input('vendor_id'),
         ]);
 
-        return redirect()->route('products')->with('success', 'Product berhasil diupdate');
+        return redirect()->route('products')->with('success', 'Produk berhasil diupdate');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('products')->with('success', 'Produk berhasil dihapus');
     }
 }

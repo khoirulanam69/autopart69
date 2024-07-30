@@ -9,4 +9,5 @@
     @endif
     <a href="/products/create" class="btn btn-primary my-2">Tambah Data</a>
     @include('data.data-table')
+    @include('pages.product.delete')
 @endsection
