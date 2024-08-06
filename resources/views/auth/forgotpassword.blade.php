@@ -1,5 +1,5 @@
 @extends('templates.auth')
-@section('title', 'Lupa Password | Autopart')
+@section('title', 'Lupa Password')
 @section('body')
     @if (session('success'))
         <div class="alert alert-success flash-message">

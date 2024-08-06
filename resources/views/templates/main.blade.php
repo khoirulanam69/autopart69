@@ -13,21 +13,10 @@
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     {{-- icon --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        body,
-        html {
-            height: 100vh;
-            margin: 0;
-        }
-
-        .content-container {
-            flex: 10;
-            overflow-y: auto;
-        }
-    </style>
 </head>
 
 <body>
+    <div class="sidebar-overlay"></div>
     @include('layouts.sidebar')
     <div class="flex-grow-1 d-flex flex-column">
         @include('layouts.navbar')
@@ -58,6 +47,23 @@
                     message.style.display = 'none';
                 });
             }, 5000);
+        });
+
+        // Toggle sidebar on mobile
+        document.querySelector('.navbar-toggler-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+        });
+
+        // Toggle navbar on mobile
+        document.querySelector('.navbar-toggler-navbar').addEventListener('click', function() {
+            document.querySelector('.navbar-collapse').classList.toggle('show');
         });
     </script>
     @stack('scripts')

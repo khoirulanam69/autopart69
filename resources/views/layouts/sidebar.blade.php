@@ -27,7 +27,7 @@
 
             $('#dashboard, #product, #order').removeClass('active');
 
-            if (path.includes('products')) {
+            if (path.includes('product')) {
                 $('#product').addClass('active');
             } else if (path.includes('orders')) {
                 $('#order').addClass('active');

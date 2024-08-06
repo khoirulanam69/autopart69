@@ -1,5 +1,5 @@
 @extends('templates.auth')
-@section('title', 'Login | Autopart')
+@section('title', 'Login')
 @section('body')
     @if (session('error'))
         <div class="alert alert-danger flash-message">

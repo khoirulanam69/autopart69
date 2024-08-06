@@ -1,5 +1,5 @@
 @extends('templates.auth')
-@section('title', 'Buat Password Baru | Autopart')
+@section('title', 'Buat Password Baru')
 @section('body')
     <div class="card">
         <div class="card-header bg-primary">
