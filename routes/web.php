@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,6 @@ Route::middleware('auth')->group(function () {
   Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
   Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
   Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('product.delete');
-  Route::get('/orders', [PagesController::class, 'order'])->name('order');
+  Route::resource('orders', OrderController::class);
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

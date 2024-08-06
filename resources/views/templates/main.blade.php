@@ -65,6 +65,25 @@
         document.querySelector('.navbar-toggler-navbar').addEventListener('click', function() {
             document.querySelector('.navbar-collapse').classList.toggle('show');
         });
+
+        function handleProductForm() {
+            document.getElementById('add-product').addEventListener('click', function() {
+                let productWrapper = document.getElementById('products-wrapper');
+                let newProductItem = document.querySelector('.product-item').cloneNode(true);
+                newProductItem.querySelector('.product-select').value = '';
+                newProductItem.querySelector('.product-quantity').value = '';
+                productWrapper.appendChild(newProductItem);
+            });
+
+            document.getElementById('products-wrapper').addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-product')) {
+                    e.target.closest('.product-item').remove();
+                }
+            });
+        }
+
+        // Initialize product form handler on page load
+        document.addEventListener('DOMContentLoaded', handleProductForm);
     </script>
     @stack('scripts')
 </body>
