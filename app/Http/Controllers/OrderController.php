@@ -12,10 +12,6 @@ class OrderController extends Controller
     {
         $orders = Order::with('products')->get();
 
-        foreach ($orders as $order) {
-            $order->total_price = $order->calculateTotalPrice();
-        }
-
         return view('pages.order.index', compact('orders'));
     }
 

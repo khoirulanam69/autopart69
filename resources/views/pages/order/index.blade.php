@@ -40,7 +40,7 @@
                                 <div>{{ $product->name }} (Quantity: {{ $product->pivot->quantity }})</div>
                             @endforeach
                         </td>
-                        <td>{{ number_format($order->total_price, 2) }}</td>
+                        <td>{{ 'Rp ' . number_format($order->total_price, 0, ',', '.') }}</td>
                         <td>{{ $order->status }}</td>
                         <td>
                             <form action="{{ route('orders.destroy', $order->id) }}" method="POST"

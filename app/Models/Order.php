@@ -18,7 +18,7 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot('quantity')->withTimestamps();
     }
 
-    public function calculateTotalPrice()
+    public function getTotalPriceAttribute()
     {
         $total = 0;
 
