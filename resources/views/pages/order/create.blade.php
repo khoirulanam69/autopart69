@@ -16,7 +16,7 @@
                                 <input type="text" class="form-control" id="user_name" name="user_name" required>
                             </div>
 
-                            <div class="mb-3" id="products-wrapper">
+                            <div class="mb-2" id="products-wrapper">
                                 <label class="form-label">Products</label>
                                 <div class="product-item d-flex align-items-center mb-2">
                                     <select class="form-control product-select" name="products[]">
@@ -25,12 +25,14 @@
                                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                                         @endforeach
                                     </select>
-                                    <input type="number" class="form-control product-quantity ms-2" name="quantities[]"
-                                        placeholder="Quantity">
-                                    <button type="button" class="btn btn-danger ms-2 remove-product">Remove</button>
+                                    <input type="number" class="form-control product-quantity mx-2" name="quantities[]"
+                                        placeholder="0" style="width:45px !important;" required>
+                                    <button type="button" class="btn btn-danger remove-product"><i
+                                            class="fa-solid fa-xmark"></i></button>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-secondary mb-3" id="add-product">Add Product</button>
+                            <button type="button" class="btn btn-secondary mb-3" id="add-product"><i
+                                    class="fa-solid fa-plus"></i></button>
 
                             <div class="mb-3">
                                 <label for="status">Status</label>

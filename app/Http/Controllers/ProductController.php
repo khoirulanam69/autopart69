@@ -52,8 +52,8 @@ class ProductController extends Controller
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'stock' => 'required|integer|min:0',
-            'buy' => 'required|numeric|min:0',
-            'sell' => 'required|numeric|min:0',
+            'buy' => 'required|integer|min:0',
+            'sell' => 'required|integer|min:0',
             'vendor_id' => 'required|integer|exists:vendors,id',
         ]);
 
@@ -82,8 +82,8 @@ class ProductController extends Controller
             'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'stock' => 'required|integer|min:0',
-            'buy' => 'required|numeric|min:0',
-            'sell' => 'required|numeric|min:0',
+            'buy' => 'required|integer|min:0',
+            'sell' => 'required|integer|min:0',
             'vendor_id' => 'required|integer|exists:vendors,id',
         ]);
 

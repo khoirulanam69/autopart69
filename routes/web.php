@@ -39,5 +39,6 @@ Route::middleware('auth')->group(function () {
   Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
   Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('product.delete');
   Route::resource('orders', OrderController::class);
+  Route::get('/api/orders', [OrderController::class, 'getOrders'])->name('api.orders');
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

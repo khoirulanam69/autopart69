@@ -18,33 +18,29 @@
                                     value="{{ $order->user_name }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="products">Products</label>
-                                <div id="products-wrapper">
-                                    @foreach ($order->products as $product)
-                                        <div class="product-item">
-                                            <select name="products[]" class="form-control product-select" required>
-                                                @foreach ($products as $productOption)
-                                                    <option value="{{ $productOption->id }}"
-                                                        {{ $productOption->id == $product->id ? 'selected' : '' }}>
-                                                        {{ $productOption->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <input type="number" name="quantities[]" class="form-control product-quantity"
-                                                placeholder="Quantity" value="{{ $product->pivot->quantity }}" required>
-                                            <button type="button" class="btn btn-danger remove-product">Remove</button>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <button type="button" class="btn btn-primary mt-2" id="add-product">Add Product</button>
+                            <div class="mb-2" id="products-wrapper">
+                                <label class="form-label">Products</label>
+                                @foreach ($order->products as $product)
+                                    <div class="product-item d-flex align-items-center mb-2">
+                                        <select class="form-control product-select" name="products[]">
+                                            <option value="">Select product</option>
+                                            @foreach ($products as $productOption)
+                                                <option value="{{ $productOption->id }}"
+                                                    {{ $productOption->id == $product->id ? 'selected' : '' }}>
+                                                    {{ $productOption->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <input type="number" name="quantities[]" min="1"
+                                            class="form-control product-quantity mx-2" placeholder="0"
+                                            value="{{ $product->pivot->quantity }}" style="width:45px !important;" required>
+                                        <button type="button" class="btn btn-danger remove-product"><i
+                                                class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                @endforeach
                             </div>
-
-                            <div class="mb-3">
-                                <label for="total_price" class="form-label">Total Harga</label>
-                                <input type="number" step="0.01" class="form-control" id="total_price"
-                                    name="total_price" value="{{ $order->total_price }}" required>
-                            </div>
+                            <button type="button" class="btn btn-secondary mb-3" id="add-product"><i
+                                    class="fa-solid fa-plus"></i></button>
 
                             <div class="mb-3">
                                 <label for="status">Status</label>
@@ -56,10 +52,11 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

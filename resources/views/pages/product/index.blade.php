@@ -8,6 +8,6 @@
         </div>
     @endif
     <a href="/product/create" class="btn btn-primary my-2">Tambah Data</a>
-    @include('data.data-table')
+    @include('data.product-table')
     @include('pages.product.delete')
 @endsection

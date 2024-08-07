@@ -4,8 +4,12 @@ html {
   margin: 0;
 }
 
+body {
+  display: flex;
+}
+
 .content-container {
-  flex: 1;
+  flex: 10;
   overflow-y: auto;
 }
 
@@ -36,7 +40,11 @@ html {
   flex: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
+  body {
+    display: block;
+  }
+
   .sidebar {
     width: 100%;
     position: fixed;
@@ -68,7 +76,7 @@ html {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 991px) {
 
   .navbar-toggler-sidebar,
   .navbar-toggler {

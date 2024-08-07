@@ -10,8 +10,4 @@ class PagesController extends Controller
     {
         return view('pages.dashboard');
     }
-    function order()
-    {
-        return view('pages.order');
-    }
 }

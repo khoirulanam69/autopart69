@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('stock');
-            $table->decimal('buy', 10, 2);
-            $table->decimal('sell', 10, 2);
+            $table->integer('buy');
+            $table->integer('sell');
             $table->unsignedBigInteger('vendor_id');
             $table->timestamps();
 

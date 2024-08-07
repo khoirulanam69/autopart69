@@ -5,14 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('products')->get();
+        return view('pages.order.index');
+    }
 
-        return view('pages.order.index', compact('orders'));
+    public function getOrders()
+    {
+        $orders = Order::with('products')->select('orders.*');
+
+        return DataTables::of($orders)
+            ->addColumn('products', function ($order) {
+                return $order->products->map(function ($product) {
+                    return $product->name . ' (Quantity: ' . $product->pivot->quantity . ')';
+                })->implode('<br>');
+            })
+            ->addColumn('total_price', function ($order) {
+                return $order->getTotalPrice();
+            })
+            ->addColumn('action', function ($order) {
+                return '<td>
+                    <a href="' . route('orders.edit', $order->id) . '"><i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i></a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $order->id . '"><i class="fa-solid fa-trash mx-1" style="color: red"></i></a>
+                </td>';
+            })
+            ->rawColumns(['products', 'action'])
+            ->make(true);
     }
 
     public function create()
@@ -38,38 +61,49 @@ class OrderController extends Controller
             $order->products()->attach($productId, ['quantity' => $request->quantities[$index]]);
         }
 
+        $order->total_price = $order->getTotalPrice();
+        $order->save();
+
         return redirect()->route('orders.index')
             ->with('success', 'Order created successfully.');
     }
 
-    public function edit(Order $order)
+    public function edit($id)
     {
-        return view('pages.order.edit', compact('order'));
+        $order = Order::with('products')->findOrFail($id);
+        $products = Product::all();
+        return view('pages.order.edit', compact('order', 'products'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Order $order)
     {
         $request->validate([
-            'user_id' => 'required|integer',
+            'user_name' => 'required|string|max:255',
             'status' => 'required|in:lunas,hutang',
-            'total_price' => 'required|numeric',
             'products' => 'required|array',
-            'products.*' => 'required|exists:products,id',
             'quantities' => 'required|array',
-            'quantities.*' => 'required|integer|min:1',
+            'products.*' => 'exists:products,id',
+            'quantities.*' => 'integer|min:1',
         ]);
 
-        $order = Order::findOrFail($id);
-        $order->update($request->only(['user_name', 'status', 'total_price']));
+        $order->user_name = $request->user_name;
+        $order->status = $request->status;
+        $order->save();
 
-        $order->products()->detach();
+        $syncData = [];
         foreach ($request->products as $index => $productId) {
-            $order->products()->attach($productId, ['quantity' => $request->quantities[$index]]);
+            $syncData[$productId] = ['quantity' => $request->quantities[$index]];
         }
 
-        return redirect()->route('orders.index')
-            ->with('success', 'Order updated successfully.');
+        $order->products()->sync($syncData);
+
+        $order->total_price = $order->getTotalPrice();
+        $order->save();
+
+        return redirect()->route('orders.index')->with('success', 'Order berhasil diperbaharui.');
     }
+
+
 
     public function destroy(Order $order)
     {
