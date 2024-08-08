@@ -1,7 +1,6 @@
 <table id="ordersTable" class="table table-bordered">
     <thead>
         <tr>
-            <th>No</th>
             <th>Nama</th>
             <th>Produk</th>
             <th>Total Harga</th>
@@ -19,10 +18,6 @@
                 serverSide: true,
                 ajax: '{{ route('api.orders') }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
                         data: 'user_name',
                         name: 'user_name'
                     },

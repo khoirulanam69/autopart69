@@ -2,34 +2,32 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this item?
+                Apakah Anda yakin ingin menghapus order ini?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Hapus</button>
             </div>
         </div>
     </div>
 </div>
+
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let deleteModal = document.getElementById('deleteModal');
-            let confirmDelete = document.getElementById('confirmDelete');
-            let formToDelete;
+            let orderId;
 
-            deleteModal.addEventListener('show.bs.modal', function(event) {
-                let button = event.relatedTarget;
-                let orderId = button.getAttribute('data-id');
-                formToDelete = document.getElementById('deleteForm' + orderId);
+            $('#deleteModal').on('show.bs.modal', function(event) {
+                let button = $(event.relatedTarget);
+                orderId = button.data('id');
             });
 
-            confirmDelete.addEventListener('click', function() {
-                formToDelete.submit();
+            $('#confirmDelete').click(function() {
+                $('#deleteForm' + orderId).submit();
             });
         });
     </script>

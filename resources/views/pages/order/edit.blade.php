@@ -33,7 +33,7 @@
                                         </select>
                                         <input type="number" name="quantities[]" min="1"
                                             class="form-control product-quantity mx-2" placeholder="0"
-                                            value="{{ $product->pivot->quantity }}" style="width:45px !important;" required>
+                                            value="{{ $product->pivot->quantity }}" style="width:10% !important;" required>
                                         <button type="button" class="btn btn-danger remove-product"><i
                                                 class="fa-solid fa-xmark"></i></button>
                                     </div>

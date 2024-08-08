@@ -22,7 +22,7 @@ class OrderController extends Controller
         return DataTables::of($orders)
             ->addColumn('products', function ($order) {
                 return $order->products->map(function ($product) {
-                    return $product->name . ' (Quantity: ' . $product->pivot->quantity . ')';
+                    return $product->name . ' x ' . $product->pivot->quantity;
                 })->implode('<br>');
             })
             ->addColumn('total_price', function ($order) {
@@ -30,8 +30,16 @@ class OrderController extends Controller
             })
             ->addColumn('action', function ($order) {
                 return '<td>
-                    <a href="' . route('orders.edit', $order->id) . '"><i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i></a>
-                    <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $order->id . '"><i class="fa-solid fa-trash mx-1" style="color: red"></i></a>
+                    <form action="' . route('orders.destroy', $order->id) . '" method="POST" class="deleteForm" id="deleteForm' . $order->id . '">
+                        <a href="' . route('orders.edit', $order->id) . '">
+                            <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
+                        </a>
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="button" style="border: 0; background: transparent;" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $order->id . '">
+                            <i class="fa-solid fa-trash mx-1" style="color: red"></i>
+                        </button>
+                    </form>
                 </td>';
             })
             ->rawColumns(['products', 'action'])
@@ -65,7 +73,7 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('orders.index')
-            ->with('success', 'Order created successfully.');
+            ->with('success', 'Order berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -103,13 +111,11 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Order berhasil diperbaharui.');
     }
 
-
-
     public function destroy(Order $order)
     {
+        $order->products()->detach();
         $order->delete();
 
-        return redirect()->route('orders.index')
-            ->with('success', 'Order deleted successfully.');
+        return redirect()->route('orders.index')->with('success', 'Order berhasil dihapus');
     }
 }

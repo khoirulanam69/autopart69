@@ -26,7 +26,7 @@
                                         @endforeach
                                     </select>
                                     <input type="number" class="form-control product-quantity mx-2" name="quantities[]"
-                                        placeholder="0" style="width:45px !important;" required>
+                                        placeholder="0" style="width:10% !important;" required>
                                     <button type="button" class="btn btn-danger remove-product"><i
                                             class="fa-solid fa-xmark"></i></button>
                                 </div>
