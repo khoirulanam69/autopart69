@@ -3,64 +3,73 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vendor;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('pages.vendor.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('pages.vendor.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreVendorRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'unique:vendors,email',
+        ]);
+
+        Vendor::create($request->all());
+
+        return redirect()->route('vendors.index')->with('success', 'Vendor created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Vendor $vendor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Vendor $vendor)
     {
-        //
+        return view('pages.vendor.edit', compact('vendor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateVendorRequest $request, Vendor $vendor)
+    public function update(Request $request, Vendor $vendor)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'unique:vendors,email,' . $vendor->id,
+        ]);
+
+        $vendor->update($request->all());
+
+        return redirect()->route('vendors.index')->with('success', 'Vendor updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Vendor $vendor)
     {
-        //
+        $vendor->delete();
+
+        return redirect()->route('vendors.index')->with('success', 'Vendor deleted successfully.');
+    }
+
+    public function getVendors()
+    {
+        return datatables()->of(Vendor::query())->addColumn('action', function ($vendor) {
+            return '<td>
+                        <form action="' . route('vendors.destroy', $vendor->id) . '" method="POST" class="deleteForm" id="deleteForm' . $vendor->id . '">
+                            <a href="' . route('vendors.edit', $vendor->id) . '">
+                                <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
+                            </a>
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="button" style="border: 0; background: transparent;" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $vendor->id . '">
+                                <i class="fa-solid fa-trash mx-1" style="color: red"></i>
+                            </button>
+                        </form>
+                    </td>';
+        })->make(true);
     }
 }

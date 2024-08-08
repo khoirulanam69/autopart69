@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,7 @@ Route::middleware('auth')->group(function () {
   Route::delete('/product/{id}', [ProductController::class, 'delete'])->name('product.delete');
   Route::resource('orders', OrderController::class);
   Route::get('/api/orders', [OrderController::class, 'getOrders'])->name('api.orders');
+  Route::resource('vendors', VendorController::class);
+  Route::get('api/vendors', [VendorController::class, 'getVendors'])->name('api.vendors');
   Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

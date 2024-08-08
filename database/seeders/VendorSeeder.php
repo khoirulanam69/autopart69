@@ -14,6 +14,8 @@ class VendorSeeder extends Seeder
     {
         \App\Models\Vendor::factory()->create([
             'name' => 'Honda',
+            'email' => '',
+            'phone' => ''
         ]);
     }
 }

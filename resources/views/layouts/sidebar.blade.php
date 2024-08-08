@@ -5,10 +5,13 @@
             <a href="/" id="dashboard" class="nav-link active">Dashboard</a>
         </li>
         <li class="nav-item">
+            <a href="/orders" id="order" class="nav-link">Order</a>
+        </li>
+        <li class="nav-item">
             <a href="/products" id="product" class="nav-link">Produk</a>
         </li>
         <li class="nav-item">
-            <a href="/orders" id="order" class="nav-link">Order</a>
+            <a href="/vendors" id="vendor" class="nav-link">Vendor</a>
         </li>
     </ul>
     <a href="{{ route('logout') }}"><button class="btn btn-primary"><i class="fa-solid fa-right-from-bracket"></i>
@@ -27,10 +30,12 @@
 
             $('#dashboard, #product, #order').removeClass('active');
 
-            if (path.includes('product')) {
-                $('#product').addClass('active');
-            } else if (path.includes('orders')) {
+            if (path.includes('orders')) {
                 $('#order').addClass('active');
+            } else if (path.includes('products')) {
+                $('#product').addClass('active');
+            } else if (path.includes('vendors')) {
+                $('#vendor').addClass('active');
             } else {
                 $('#dashboard').addClass('active');
             }
