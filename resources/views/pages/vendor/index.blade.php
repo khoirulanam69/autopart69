@@ -20,6 +20,11 @@
                 {{ $message }}
             </div>
         @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger flash-message">
+                {{ $message }}
+            </div>
+        @endif
 
         @include('data.vendor-table')
     </div>

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vendor_id');
             $table->timestamps();
 
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('restrict');
         });
     }
 

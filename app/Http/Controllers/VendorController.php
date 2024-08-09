@@ -50,6 +50,11 @@ class VendorController extends Controller
 
     public function destroy(Vendor $vendor)
     {
+        if ($vendor->products()->count() > 0) {
+            return redirect()->route('vendors.index')
+                ->with('error', 'Vendor tidak bisa dihapus karena masih memiliki produk terkait.');
+        }
+
         $vendor->delete();
 
         return redirect()->route('vendors.index')->with('success', 'Vendor deleted successfully.');
