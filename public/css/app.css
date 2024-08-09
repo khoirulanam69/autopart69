@@ -40,6 +40,14 @@ body {
   flex: 1;
 }
 
+.bg-lunas {
+  background-color: #d4edda !important;
+}
+
+a{
+  text-decoration: none !important;
+}
+
 @media (max-width: 991px) {
   body {
     display: block;

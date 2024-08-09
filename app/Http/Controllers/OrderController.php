@@ -30,17 +30,13 @@ class OrderController extends Controller
             })
             ->addColumn('action', function ($order) {
                 return '<td>
-                    <form action="' . route('orders.destroy', $order->id) . '" method="POST" class="deleteForm" id="deleteForm' . $order->id . '">
-                        <a href="' . route('orders.edit', $order->id) . '">
-                            <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
-                        </a>
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="button" style="border: 0; background: transparent;" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $order->id . '">
-                            <i class="fa-solid fa-trash mx-1" style="color: red"></i>
-                        </button>
-                    </form>
-                </td>';
+                            <a href="' . route('orders.edit', $order->id) . '">
+                                <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $order->id . '">
+                                <i class="fa-solid fa-trash mx-1" style="color: red"></i>
+                            </a>
+                        </td>';
             })
             ->rawColumns(['products', 'action'])
             ->make(true);

@@ -41,7 +41,12 @@
                         orderable: false,
                         searchable: false
                     }
-                ]
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    if (data.status === 'lunas') {
+                        $('td', row).addClass('bg-lunas');
+                    }
+                }
             });
         });
     </script>

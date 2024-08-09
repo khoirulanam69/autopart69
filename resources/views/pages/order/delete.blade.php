@@ -10,7 +10,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Hapus</button>
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
             </div>
         </div>
     </div>
@@ -18,16 +22,13 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let orderId;
-
+        $(document).ready(function() {
             $('#deleteModal').on('show.bs.modal', function(event) {
-                let button = $(event.relatedTarget);
-                orderId = button.data('id');
-            });
-
-            $('#confirmDelete').click(function() {
-                $('#deleteForm' + orderId).submit();
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var action = '/orders/' + id;
+                var modal = $(this);
+                modal.find('#deleteForm').attr('action', action);
             });
         });
     </script>

@@ -6,6 +6,7 @@ use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class VendorController extends Controller
 {
@@ -62,19 +63,20 @@ class VendorController extends Controller
 
     public function getVendors()
     {
-        return datatables()->of(Vendor::query())->addColumn('action', function ($vendor) {
-            return '<td>
-                        <form action="' . route('vendors.destroy', $vendor->id) . '" method="POST" class="deleteForm" id="deleteForm' . $vendor->id . '">
-                            <a href="' . route('vendors.edit', $vendor->id) . '">
-                                <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
-                            </a>
-                            ' . csrf_field() . '
-                            ' . method_field('DELETE') . '
-                            <button type="button" style="border: 0; background: transparent;" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="' . $vendor->id . '">
-                                <i class="fa-solid fa-trash mx-1" style="color: red"></i>
-                            </button>
-                        </form>
+        $vendors = Vendor::select('vendors.*');
+
+        return DataTables::of($vendors)
+            ->addColumn('action', function ($vendor) {
+                return '<td>
+                        <a href="' . route('vendors.edit', $vendor->id) . '">
+                            <i class="fa-solid fa-pen-to-square mx-1" style="color: orange"></i>
+                        </a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteVendorModal" data-id="' . $vendor->id . '">
+                            <i class="fa-solid fa-trash mx-1" style="color: red"></i>
+                        </a>
                     </td>';
-        })->make(true);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }
